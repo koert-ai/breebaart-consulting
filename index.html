@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Breebaart Consulting</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Breebaart Consulting helps AI companies win large enterprise deals: deal shaping, executive pitches, value selling and sales team coaching. By the project.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&family=Homemade+Apple&display=swap">
+<style>
+/* Layout concept: the page reads like a business case, top to bottom — thesis, gap, method, proof, signature. */
+:root {
+  --paper: #F3F5F8;
+  --surface: #FFFFFF;
+  --ink: #0E1A2B;
+  --ink-2: #4B5769;
+  --rule: #D3DAE3;
+  --accent: #2340D9;      /* fountain-pen cobalt */
+  --accent-soft: #E2E7FC;
+  --stall: #B4430E;
+
+  --display: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --body: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --hand: "Homemade Apple", "Segoe Script", cursive;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0B1220; --surface: #121B2C; --ink: #E7ECF3; --ink-2: #A2ADBE;
+    --rule: #27334A; --accent: #8FA3FF; --accent-soft: #1A2448; --stall: #F29A5E;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0B1220; --surface: #121B2C; --ink: #E7ECF3; --ink-2: #A2ADBE;
+  --rule: #27334A; --accent: #8FA3FF; --accent-soft: #1A2448; --stall: #F29A5E;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 18px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px);
+  z-index: 10; background: var(--paper);
+}
+a { color: inherit; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+.wrap {
+  max-width: 1120px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+@media (min-width: 720px) {
+  .wrap { padding-left: max(32px, env(safe-area-inset-left, 0px)); padding-right: max(32px, env(safe-area-inset-right, 0px)); }
+}
+
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; }
+p { margin: 0; }
+.eyebrow {
+  font-family: var(--mono); font-size: 0.75rem; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent);
+}
+.lede { font-size: clamp(1.1rem, 1.6vw, 1.3rem); color: var(--ink-2); max-width: 36em; }
+
+/* ---------- header ---------- */
+header.site {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--rule);
+}
+header.site .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 14px; }
+.mark { font-family: var(--display); font-weight: 800; font-size: 1.05rem; letter-spacing: -0.01em; text-decoration: none; }
+.mark span { color: var(--accent); }
+nav.site { display: flex; align-items: center; gap: 28px; font-family: var(--display); font-size: 0.95rem; font-weight: 500; }
+nav.site a { text-decoration: none; color: var(--ink-2); }
+nav.site a:hover { color: var(--ink); }
+nav.site a.cta {
+  color: var(--surface); background: var(--ink); padding: 8px 16px; border-radius: 999px;
+}
+:root[data-theme="dark"] nav.site a.cta { color: var(--paper); }
+nav.site a.cta:hover { background: var(--accent); color: #fff; }
+@media (max-width: 719px) { nav.site a:not(.cta) { display: none; } }
+
+section { padding-block: clamp(64px, 9vw, 120px); scroll-margin-top: 64px; }
+section + section { border-top: 1px solid var(--rule); }
+.head { display: grid; gap: 14px; margin-bottom: clamp(36px, 5vw, 56px); max-width: 44em; }
+h2 { font-size: clamp(1.9rem, 3.6vw, 2.8rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.08; }
+
+/* ---------- hero ---------- */
+.hero { padding-block: clamp(56px, 8vw, 104px) clamp(56px, 7vw, 88px); }
+.hero h1 {
+  font-size: clamp(2.4rem, 5.4vw, 4.4rem); font-weight: 800; letter-spacing: -0.035em; line-height: 1.0;
+  margin-top: 18px; max-width: 13em;
+}
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 40px 56px; align-items: end; }
+.hero-copy { min-width: 0; }
+.hero-photo, .portrait { margin: 0; border-radius: 12px; overflow: hidden; background: var(--rule); max-width: 100%; }
+.hero-photo { aspect-ratio: 4 / 5; }
+.hero-photo img, .portrait img { display: block; width: 100%; height: 100%; object-fit: cover; }
+@media (max-width: 859px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-photo { max-width: 380px; }
+}
+
+/* stage band */
+.band { position: relative; margin: 0; height: clamp(360px, 50vw, 620px); overflow: hidden; background: #0A0F1A; }
+.band img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 60% 30%; }
+.band::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(8,12,22,.88) 0%, rgba(8,12,22,.6) 38%, rgba(8,12,22,0) 68%); }
+.band figcaption { position: absolute; inset: 0; z-index: 1; display: flex; align-items: center; }
+.band figcaption .wrap { width: 100%; }
+.band blockquote { margin: 0; max-width: 21em; color: #F2F4F8; font-family: var(--display); font-weight: 700; font-size: clamp(1.4rem, 2.8vw, 2.2rem); line-height: 1.2; letter-spacing: -0.02em; text-wrap: balance; }
+.band cite { display: block; margin-top: 18px; font-style: normal; font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: #AFC0FF; }
+@media (max-width: 719px) {
+  .band { height: 520px; }
+  .band img { object-position: 68% 20%; }
+  .band::after { background: linear-gradient(0deg, rgba(8,12,22,.92) 0%, rgba(8,12,22,.55) 45%, rgba(8,12,22,0) 72%); }
+  .band figcaption { align-items: flex-end; padding-bottom: 32px; }
+}
+.hero h1 em { font-style: normal; color: var(--accent); }
+.hero .lede { margin-top: 26px; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: center; margin-top: 34px; font-family: var(--display); }
+.btn {
+  display: inline-block; font-family: var(--display); font-weight: 600; font-size: 1rem;
+  padding: 13px 22px; border-radius: 999px; text-decoration: none;
+  background: var(--accent); color: #fff; border: 0; cursor: pointer;
+}
+.btn:hover { filter: brightness(1.08); }
+.textlink { font-weight: 600; color: var(--ink); text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 5px; }
+.textlink:hover { text-decoration-color: var(--accent); }
+
+/* deal-stage track */
+.track { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); row-gap: 16px; margin-top: clamp(56px, 7vw, 84px); }
+.bracket {
+  grid-column: 3 / 6; grid-row: 1; position: relative; padding-bottom: 14px;
+  font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent);
+}
+.bracket::after {
+  content: ""; position: absolute; left: 0; right: 8%; bottom: 0; height: 10px;
+  border: 2px solid var(--accent); border-bottom: 0; border-radius: 4px 4px 0 0;
+}
+.stage { grid-row: 2; position: relative; padding-top: 26px; padding-right: 12px; min-width: 0; }
+.stage::before {
+  content: ""; position: absolute; top: 0; left: 0; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--paper); border: 2px solid var(--ink-2); z-index: 1;
+}
+.stage::after { content: ""; position: absolute; top: 6px; left: 16px; right: 2px; height: 2px; background: var(--rule); }
+.stage.s5::after { display: none; }
+.stage.in::before { background: var(--accent); border-color: var(--accent); }
+.stage.in::after { background: var(--accent); }
+.stage b { display: block; font-family: var(--display); font-weight: 700; font-size: 1.05rem; line-height: 1.25; }
+.stage small { display: block; margin-top: 4px; font-family: var(--mono); font-size: 0.75rem; line-height: 1.45; color: var(--ink-2); }
+.stall {
+  grid-column: 2 / 4; grid-row: 3; text-align: center;
+  font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.04em; color: var(--stall);
+}
+@media (max-width: 719px) {
+  .track { grid-template-columns: 1fr; row-gap: 0; }
+  .stage, .bracket, .stall { grid-column: 1; grid-row: auto; }
+  .stage { padding: 0 0 22px 32px; }
+  .stage::before { top: 4px; }
+  .stage::after { top: 20px; left: 6px; width: 2px; height: auto; bottom: 0; right: auto; }
+  .s1 { order: 1; } .s2 { order: 2; } .stall { order: 3; text-align: left; padding: 0 0 18px 32px; }
+  .bracket { order: 4; padding: 0 0 14px 32px; } .bracket::after { display: none; }
+  .s3 { order: 5; } .s4 { order: 6; } .s5 { order: 7; }
+}
+
+/* ---------- gap ---------- */
+.gap { border-top: 2px solid var(--ink); }
+.gap-row { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; padding-block: 18px; border-bottom: 1px solid var(--rule); }
+.gap-row > div { min-width: 0; }
+.gap-row.labels { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); padding-block: 14px; }
+.gap-row.labels div:last-child { color: var(--accent); }
+.gap-row .was { color: var(--ink-2); }
+.gap-row .needs { font-family: var(--display); font-weight: 600; font-size: 1.1rem; line-height: 1.4; }
+@media (max-width: 719px) {
+  .gap-row { grid-template-columns: 1fr; gap: 6px; }
+  .gap-row.labels { display: none; }
+  .gap-row .was::before { content: "Today: "; font-family: var(--mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; }
+}
+
+/* ---------- services ---------- */
+.svc { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr); gap: 12px 48px; padding-block: 28px; border-top: 1px solid var(--rule); }
+.svc:last-child { border-bottom: 1px solid var(--rule); }
+.svc h3 { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.015em; line-height: 1.25; }
+.svc p { color: var(--ink-2); max-width: 36em; }
+@media (max-width: 719px) { .svc { grid-template-columns: 1fr; } }
+
+/* ---------- engagements ---------- */
+.shapes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+@media (max-width: 899px) { .shapes { grid-template-columns: 1fr; } }
+.shape {
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 10px;
+  padding: 28px; display: grid; grid-template-rows: auto auto 1fr auto; gap: 14px; min-width: 0;
+}
+.shape .dur { font-family: var(--mono); font-size: 0.8rem; color: var(--accent); }
+.shape h3 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; }
+.shape p { color: var(--ink-2); }
+.shape .fee { font-family: var(--mono); font-size: 0.8rem; line-height: 1.5; color: var(--ink); border-top: 1px solid var(--rule); padding-top: 14px; }
+.capacity {
+  margin-top: 28px; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px 28px; align-items: baseline;
+  padding: 24px 28px; border-radius: 10px; background: var(--accent-soft);
+}
+.capacity strong { font-family: var(--display); font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; letter-spacing: -0.02em; color: var(--accent); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.capacity p { max-width: 40em; }
+@media (max-width: 599px) { .capacity { grid-template-columns: 1fr; } }
+
+/* ---------- proof ---------- */
+.proof { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border-top: 2px solid var(--ink); }
+.fig { padding: 26px 24px 8px 0; min-width: 0; }
+.fig + .fig { padding-left: 24px; border-left: 1px solid var(--rule); }
+.fig strong { display: block; font-family: var(--display); font-weight: 800; font-size: clamp(2.2rem, 4.4vw, 3.4rem); letter-spacing: -0.035em; line-height: 1; font-variant-numeric: tabular-nums; }
+.fig span { display: block; margin-top: 12px; font-size: 0.95rem; color: var(--ink-2); line-height: 1.5; }
+@media (max-width: 899px) {
+  .proof { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fig:nth-child(3) { padding-left: 0; border-left: 0; }
+  .fig:nth-child(n+3) { border-top: 1px solid var(--rule); }
+}
+@media (max-width: 459px) {
+  .proof { grid-template-columns: 1fr; }
+  .fig, .fig + .fig { padding-left: 0; border-left: 0; }
+  .fig + .fig { border-top: 1px solid var(--rule); }
+}
+
+/* ---------- about ---------- */
+.about { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr); gap: 32px 48px; }
+@media (max-width: 799px) { .about { grid-template-columns: 1fr; } }
+.about .bio { display: grid; gap: 18px; max-width: 36em; align-content: start; }
+.about-side { display: grid; gap: 24px; align-content: start; min-width: 0; }
+.portrait { aspect-ratio: 2 / 3; }
+@media (max-width: 799px) { .portrait { max-width: 320px; } }
+.about .bio p:first-child { font-size: 1.2rem; }
+.creds { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; align-content: start; }
+.creds li { padding-block: 12px; border-top: 1px solid var(--rule); font-size: 0.95rem; }
+.creds li:last-child { border-bottom: 1px solid var(--rule); }
+.creds li span { display: block; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-2); }
+.career { display: grid; gap: 0; margin-top: 8px; }
+.career div { display: grid; grid-template-columns: 7.5em minmax(0, 1fr); gap: 16px; padding-block: 10px; border-top: 1px solid var(--rule); font-size: 0.98rem; }
+.career div span:first-child { font-family: var(--mono); font-size: 0.8rem; color: var(--ink-2); padding-top: 3px; font-variant-numeric: tabular-nums; }
+
+/* ---------- fit ---------- */
+.fit { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+@media (max-width: 719px) { .fit { grid-template-columns: 1fr; } }
+.fit > div { padding: 28px; border-radius: 10px; border: 1px solid var(--rule); min-width: 0; }
+.fit .yes { background: var(--surface); }
+.fit h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 14px; }
+.fit ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.fit li { padding-left: 26px; position: relative; }
+.fit .yes li::before { content: "✓"; position: absolute; left: 0; color: var(--accent); font-family: var(--display); font-weight: 700; }
+.fit .no li { color: var(--ink-2); }
+.fit .no li::before { content: "×"; position: absolute; left: 2px; color: var(--ink-2); font-family: var(--display); font-weight: 700; }
+
+/* ---------- contact ---------- */
+.contact h2 { font-size: clamp(2.2rem, 5vw, 3.8rem); letter-spacing: -0.035em; max-width: 14em; }
+.contact .lede { margin-top: 20px; }
+.lines { margin-top: 40px; display: grid; gap: 0; max-width: 640px; }
+.line { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-block: 16px; border-top: 1px solid var(--rule); }
+.line:last-child { border-bottom: 1px solid var(--rule); }
+.line .k { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-2); width: 6.5em; }
+.line .v { flex: 1 1 14em; min-width: 0; font-family: var(--display); font-weight: 600; font-size: 1.15rem; user-select: all; overflow-wrap: anywhere; }
+.line a.v { user-select: auto; text-decoration: none; }
+.line a.v:hover { color: var(--accent); }
+.copy {
+  font-family: var(--mono); font-size: 0.75rem; padding: 6px 12px; border-radius: 999px; cursor: pointer;
+  background: transparent; color: var(--ink); border: 1px solid var(--rule);
+}
+.copy:hover { border-color: var(--accent); color: var(--accent); }
+.sign { margin-top: 56px; max-width: 320px; }
+.sign .hand { font-family: var(--hand); font-size: 1.7rem; color: var(--accent); line-height: 1.4; transform: rotate(-3deg); transform-origin: left bottom; padding-left: 6px; }
+.sign .sigline { border-top: 1.5px solid var(--ink); margin-top: 4px; padding-top: 8px; font-family: var(--mono); font-size: 0.75rem; color: var(--ink-2); }
+
+footer.site { border-top: 1px solid var(--rule); }
+footer.site .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; padding-block: 28px; font-family: var(--mono); font-size: 0.75rem; color: var(--ink-2); }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a class="mark" href="#top">Breebaart<span>.</span> Consulting</a>
+    <nav class="site" aria-label="Main">
+      <a href="#services">Services</a>
+      <a href="#engagements">How I work</a>
+      <a href="#about">About</a>
+      <a class="cta" href="#contact">Talk about a deal</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Strategic selling for AI companies</p>
+          <h1>Enterprise buyers don’t sign for capability. They sign for <em>accountability.</em></h1>
+          <p class="lede">AI companies win the team and the department. The large enterprise deal is a different game. I help sales leaders position, pitch and win it, and I coach the team that has to sell it. By the project.</p>
+          <div class="hero-actions">
+            <a class="btn" href="#contact">Bring me a deal</a>
+            <a class="textlink" href="#services">See what I do</a>
+          </div>
+        </div>
+        <figure class="hero-photo">
+          <img src="images/koert-studio.jpg" width="960" height="1200" alt="Koert Breebaart">
+        </figure>
+      </div>
+
+      <div class="track" role="list" aria-label="Stages of a large enterprise AI deal">
+        <div class="bracket" aria-hidden="true">Where I come in</div>
+        <div class="stage s1" role="listitem"><b>Demo</b><small>Practitioners say yes</small></div>
+        <div class="stage s2" role="listitem"><b>Pilot</b><small>A department tests it</small></div>
+        <div class="stage s3 in" role="listitem"><b>Business case</b><small>A number the CFO can defend</small></div>
+        <div class="stage s4 in" role="listitem"><b>Executive sponsor</b><small>Someone owns the outcome</small></div>
+        <div class="stage s5 in" role="listitem"><b>Signed</b><small>Contract and a scaling path</small></div>
+        <div class="stall">↑ Most AI deals stall here</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="problem">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">The gap</p>
+        <h2>Great demos. Slow pipelines. A board asking why the enterprise number isn’t landing.</h2>
+        <p class="lede">Most AI sales teams are built to sell a product. The eight-figure enterprise deal needs something else.</p>
+      </div>
+      <div class="gap">
+        <div class="gap-row labels"><div>How the team sells today</div><div>What the enterprise deal needs</div></div>
+        <div class="gap-row"><div class="was">Pitches what the product does</div><div class="needs">A business story the buyer can repeat to their own board</div></div>
+        <div class="gap-row"><div class="was">Talks to users and practitioners</div><div class="needs">An executive sponsor with a budget and a reason</div></div>
+        <div class="gap-row"><div class="was">Claims value on a slide</div><div class="needs">A defensible business case the CFO signs off</div></div>
+        <div class="gap-row"><div class="was">Hopes the pilot grows</div><div class="needs">A compelling event and a scaling path agreed up front</div></div>
+        <div class="gap-row"><div class="was">Renews on relationship</div><div class="needs">Proven outcomes that renew, and open the next door</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">What I do</p>
+        <h2>Five ways in. Most engagements combine two or three.</h2>
+        <p class="lede">The deal work comes first. Training is what clients buy second, once they’ve seen what happens to the deal.</p>
+      </div>
+      <div class="svcs">
+        <div class="svc"><h3>Deal shaping &amp; pitch</h3><p>Take one must-win deal. Build the storyline, the business case and the executive pitch. Rehearse it with the team until it lands, and sit in the room when it’s told.</p></div>
+        <div class="svc"><h3>Sales team coaching</h3><p>Live coaching on real deals, not role-play. Account planning, stakeholder mapping, and qualification that is honest about which deals are already dead.</p></div>
+        <div class="svc"><h3>Customer workshops</h3><p>Facilitated executive sessions with your customer on vision, pain, roadmap and value. The session that moves a deal from interest to sponsorship.</p></div>
+        <div class="svc"><h3>Value selling training</h3><p>Teach the team to quantify outcomes, build business cases that survive finance, and run the conversation in the customer’s language instead of the product’s.</p></div>
+        <div class="svc"><h3>Design thinking &amp; ideation</h3><p>When the use case isn’t obvious yet: structured ideation with the customer to find where AI creates real value, and how big the prize is.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="engagements">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">How I work</p>
+        <h2>Three engagement shapes. Each one tied to what happens with the deal.</h2>
+        <p class="lede">Every engagement has a base fee for the work and a component tied to the deal. I’m not paid to be present. I’m paid to move something.</p>
+      </div>
+      <div class="shapes">
+        <article class="shape">
+          <p class="dur">2–4 weeks</p>
+          <h3>Deal Sprint</h3>
+          <p>One named deal. Storyline, a business case built together with your customer, and the executive pitch.</p>
+          <p class="fee">Base fee + success component at close</p>
+        </article>
+        <article class="shape">
+          <p class="dur">3 months</p>
+          <h3>Team Programme</h3>
+          <p>Value selling training combined with live coaching on the team’s own pipeline.</p>
+          <p class="fee">Base fee + component tied to deals progressed</p>
+        </article>
+        <article class="shape">
+          <p class="dur">Ongoing</p>
+          <h3>Deal Partner</h3>
+          <p>Two days a month, attached to a named set of enterprise deals.</p>
+          <p class="fee">Retainer + success component</p>
+        </article>
+      </div>
+      <div class="capacity">
+        <strong>8–12 days</strong>
+        <p>a month per client, deliberately. I take on a few deals at a time so I can be properly in each one. Trigger, attribution and split of the success component are agreed in writing before we start, never after the deal closes.</p>
+      </div>
+    </div>
+  </section>
+
+  <figure class="band">
+    <img src="images/koert-stage.jpg" width="2000" height="1134" alt="Koert Breebaart speaking on stage" loading="lazy">
+    <figcaption>
+      <div class="wrap">
+        <blockquote>I build the storyline, I coach the team that has to tell it, and I sit in the room when it’s told.</blockquote>
+        <cite>Koert Breebaart</cite>
+      </div>
+    </figcaption>
+  </figure>
+
+  <section id="proof">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Track record</p>
+        <h2>I’ve sold it, delivered it, and built the teams that do both.</h2>
+      </div>
+      <div class="proof">
+        <div class="fig"><strong>€750M</strong><span>in new annual cloud contracts supported by the value advisory organisation I led at SAP Europe</span></div>
+        <div class="fig"><strong>€1.5B+</strong><span>ACV pipeline under value advisory support</span></div>
+        <div class="fig"><strong>100+</strong><span>large enterprise deals led and supported across Europe and Asia</span></div>
+        <div class="fig"><strong>2</strong><span>value advisory practices built from zero, in two regions</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">About</p>
+        <h2>Koert Breebaart</h2>
+      </div>
+      <div class="about">
+        <div class="about-side">
+          <figure class="portrait"><img src="images/koert-portrait.jpg" width="900" height="1351" alt="Portrait of Koert Breebaart" loading="lazy"></figure>
+          <ul class="creds">
+            <li><span>Education</span>MSc Systems Engineering, TU Delft</li>
+            <li><span>Executive</span>INSEAD Digital Transformation</li>
+            <li><span>Method</span>Lean Six Sigma Black Belt</li>
+            <li><span>Author</span><i>5 Steps to Customer Centricity</i></li>
+            <li><span>Based in</span>Hilversum, Netherlands</li>
+          </ul>
+        </div>
+        <div class="bio">
+          <p>For 25 years I’ve worked on large enterprise transformations, first on the consulting side, then on the vendor side, in Europe and Asia.</p>
+          <p>At SAP I built value advisory practices where none existed. In Middle &amp; Eastern Europe I started with 22 hires, mostly from McKinsey, BCG and Accenture, and grew it into a 60-person organisation supporting 250+ deals a year. Before that I built the Asia Pacific practice from Singapore to 50 people.</p>
+          <p>The work was always the same: get a sales team from “here’s what our product does” to “here’s what this is worth to you, and here’s the executive who will sponsor it.” Now I do that by the project, for AI companies that have the technology and the demand but not yet the enterprise selling muscle.</p>
+          <div class="career" aria-label="Career">
+            <div><span>2022–2026</span><span>SAP Europe · RVP, Head of Value Advisory MEE, Zurich</span></div>
+            <div><span>2012–2021</span><span>SAP Asia Pacific Japan · Value Advisory &amp; Industries, Singapore</span></div>
+            <div><span>Earlier</span><span>SingTel · Director Customer Experience</span></div>
+            <div><span>1999–2009</span><span>Accenture · Netherlands, China and Southeast Asia</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="fit">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Fit</p>
+        <h2>Who I work with, and who I don’t.</h2>
+      </div>
+      <div class="fit">
+        <div class="yes">
+          <h3>A good fit</h3>
+          <ul>
+            <li>AI platforms, agentic AI and applied-AI vendors moving upmarket</li>
+            <li>Series B to pre-IPO, or an established vendor with a new AI line</li>
+            <li>Sales leaders whose target deals are 5–10× what they close today</li>
+            <li>A must-win deal, or a team that needs to sell differently</li>
+          </ul>
+        </div>
+        <div class="no">
+          <h3>Not a fit</h3>
+          <ul>
+            <li>SMB and product-led growth motions</li>
+            <li>Companies looking for headcount instead of help</li>
+            <li>A trainer to tick a box</li>
+            <li>Companies whose purpose I can’t get behind</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="wrap">
+      <p class="eyebrow">Contact</p>
+      <h2 style="margin-top:14px">Bring me the deal you can’t afford to lose.</h2>
+      <p class="lede">Benelux based. Anywhere in the world when the deal justifies the trip.</p>
+      <div class="lines">
+        <div class="line"><span class="k">Email</span><span class="v" id="c-email">koertb@gmail.com</span><button class="copy" type="button" data-target="c-email">Copy</button></div>
+        <div class="line"><span class="k">Phone</span><span class="v" id="c-phone">+31 6 5705 5540</span><button class="copy" type="button" data-target="c-phone">Copy</button></div>
+        <div class="line"><span class="k">LinkedIn</span><a class="v" href="https://www.linkedin.com/in/koertbreebaart/" target="_blank" rel="noopener">linkedin.com/in/koertbreebaart ↗</a></div>
+      </div>
+      <div class="sign" aria-hidden="true">
+        <div class="hand">K. Breebaart</div>
+        <div class="sigline">Koert Breebaart · Strategic Selling Advisor</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>Breebaart Consulting · Hilversum, Netherlands</span>
+    <span>KvK 42198359</span>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.copy').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var el = document.getElementById(btn.dataset.target);
+    var text = el.textContent.trim();
+    function done(label) { btn.textContent = label; setTimeout(function () { btn.textContent = 'Copy'; }, 1600); }
+    function fallback() {
+      var r = document.createRange(); r.selectNodeContents(el);
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      done('Selected');
+    }
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () { done('Copied'); }, fallback);
+      } else { fallback(); }
+    } catch (e) { fallback(); }
+  });
+});
+</script>
+</body>
+</html>
