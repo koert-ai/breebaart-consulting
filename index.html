@@ -121,6 +121,12 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--cyan); outline-
 .tile.big p { color: var(--ink-2); }
 .tile.big::after { content: ""; position: absolute; width: 520px; height: 520px; right: -160px; top: -200px; border-radius: 50%; background: radial-gradient(closest-side, rgba(61,92,255,.55), rgba(34,195,230,.18) 55%, transparent 75%); pointer-events: none; }
 .tile.big > * { position: relative; z-index: 1; }
+.tile.vid { background: #000; color: var(--ink); }
+.tile.vid video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 40% 50%; }
+.tile.vid::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,.92) 0%, rgba(0,0,0,.45) 45%, rgba(0,0,0,.05) 75%); pointer-events: none; }
+.tile.vid > :not(video) { position: relative; z-index: 1; }
+.tile.vid p { color: #C7C7CC; }
+.tile.vid .tag { align-self: flex-start; font-size: 12px; font-weight: 600; letter-spacing: .02em; color: #fff; background: rgba(255,255,255,.16); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); padding: 6px 12px; border-radius: 999px; }
 .tile.big h3 { font-size: clamp(2rem, 3.4vw, 3rem); }
 @media (max-width: 959px) { .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); } .tile, .tile.big { grid-column: span 1; } .tile.big { grid-column: span 2; } }
 @media (max-width: 599px) { .bento { grid-template-columns: 1fr; } .tile, .tile.big { grid-column: span 1; min-height: 220px; } }
@@ -258,7 +264,7 @@ footer .logo { height: 22px; }
 
   <section class="scene zs center" data-scene data-zoom>
     <div class="sticky">
-      <figure class="zoom"><video class="media" data-vid muted loop playsinline preload="metadata" poster="images/handshake-poster.jpg" src="images/handshake.mp4" style="--s0:1.18; --shade: radial-gradient(ellipse at center, rgba(0,0,0,.55) 0%, rgba(0,0,0,.25) 60%, rgba(0,0,0,.1) 100%)"></video></figure>
+      <figure class="zoom"><video class="media" data-scrub muted playsinline preload="auto" poster="images/handshake-scrub-poster.jpg" src="images/handshake-scrub.mp4" style="--s0:1.18; --shade: radial-gradient(ellipse at center, rgba(0,0,0,.55) 0%, rgba(0,0,0,.25) 60%, rgba(0,0,0,.1) 100%)"></video></figure>
       <div class="zoom-quote wrap"><blockquote class="grad">Signed.</blockquote></div>
     </div>
   </section>
@@ -281,8 +287,9 @@ footer .logo { height: 22px; }
           <svg class="glyph" viewBox="0 0 44 44" fill="none" aria-hidden="true"><circle cx="15" cy="16" r="6" stroke="#3D5CFF" stroke-width="3"/><circle cx="30" cy="16" r="6" stroke="#22C3E6" stroke-width="3"/><path d="M5 36c1.5-6 5.5-9 10-9s8.5 3 10 9M22 36c1.5-6 4-9 8-9s7 3 9 9" stroke="#1D1D1F" stroke-width="3" stroke-linecap="round"/></svg>
           <div><h3>Sales team coaching</h3><p style="margin-top:10px">Preferably live, on real deals. Role-play as preparation where it helps.</p></div>
         </article>
-        <article class="tile rise">
-          <svg class="glyph" viewBox="0 0 44 44" fill="none" aria-hidden="true"><rect x="5" y="9" width="34" height="22" rx="4" stroke="#1D1D1F" stroke-width="3"/><path d="M13 24l6-6 5 4 7-7" stroke="#3D5CFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 37h12" stroke="#1D1D1F" stroke-width="3" stroke-linecap="round"/></svg>
+        <article class="tile vid rise">
+          <video data-vid muted loop playsinline preload="metadata" poster="images/boardroom-tile-poster.jpg" src="images/boardroom-tile.mp4" aria-hidden="true"></video>
+          <span class="tag">In the boardroom</span>
           <div><h3>Customer workshops</h3><p style="margin-top:10px">Executive sessions that turn interest into sponsorship.</p></div>
         </article>
         <article class="tile rise">
@@ -293,15 +300,6 @@ footer .logo { height: 22px; }
           <svg class="glyph" viewBox="0 0 44 44" fill="none" aria-hidden="true"><circle cx="22" cy="19" r="11" stroke="#1D1D1F" stroke-width="3"/><path d="M17 34h10M19 39h6" stroke="#1D1D1F" stroke-width="3" stroke-linecap="round"/><path d="M22 13v6l4 3" stroke="#22C3E6" stroke-width="3" stroke-linecap="round"/></svg>
           <div><h3>Design thinking</h3><p style="margin-top:10px">Find where AI creates value, and how big the prize is.</p></div>
         </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="scene zs bottom" data-scene data-zoom>
-    <div class="sticky">
-      <figure class="zoom"><video class="media" data-vid muted loop playsinline preload="metadata" poster="images/boardroom-poster.jpg" src="images/boardroom.mp4" style="--op: 50% 40%; --s0:1.2; --shade: linear-gradient(0deg, rgba(0,0,0,.88) 0%, rgba(0,0,0,.45) 40%, rgba(0,0,0,0) 70%)"></video></figure>
-      <div class="zoom-quote wrap">
-        <div><blockquote>Into the boardroom. <span class="grad">With your team, in front of your customer.</span></blockquote></div>
       </div>
     </div>
   </section>
@@ -394,6 +392,9 @@ footer .logo { height: 22px; }
   var zoomSecs = Array.prototype.slice.call(document.querySelectorAll('[data-zoom]'));
   var statementSec = document.querySelector('.statement');
   var flowMode = 0;
+  var scrubV = document.querySelector('[data-scrub]');
+  var scrubSec = scrubV ? scrubV.closest('[data-scene]') : null;
+  if (scrubV) { scrubV.addEventListener('loadedmetadata', function () { onScroll(); }); }
 
   function update() {
     var vh = window.innerHeight;
@@ -411,6 +412,10 @@ footer .logo { height: 22px; }
       words.forEach(function (w, i) { w.style.setProperty('--o', (0.2 + 0.8 * clamp((q - i / n) * n / 2.5, 0, 1)).toFixed(3)); });
     }
     if (flowSec) { flowMode = smooth(0.42, 0.62, flowSec._p); flowSec.style.setProperty('--m', flowMode.toFixed(3)); }
+    if (scrubV && scrubSec && scrubV.readyState >= 1) {
+      var d = scrubV.duration || 3, tt = reduce ? 1 : clamp((scrubSec._p - 0.04) / 0.6, 0, 1), target = tt * (d - 0.05);
+      if (Math.abs(scrubV.currentTime - target) > 0.02) { try { scrubV.currentTime = target; } catch (err) {} }
+    }
     zoomSecs.forEach(function (z) {
       z.style.setProperty('--e', smooth(0, 0.5, z._p).toFixed(4));
       z.style.setProperty('--q', smooth(0.38, 0.66, z._p).toFixed(4));
